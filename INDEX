@@ -1,0 +1,5 @@
+artificial.data                     Create an artificial data set
+predict.archetype                   Predict presence of archetypes from fitted model
+SpeciesMix                          Fit finite mixture models to species distributions
+SpeciesMix.em                       Implementation of SpeciesMix using EM algorithim
+SpeciesMixtures                     Package Description

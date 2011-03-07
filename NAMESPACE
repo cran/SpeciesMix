@@ -1,0 +1,8 @@
+export( "artificial.data",
+"predict.archetype",
+"SpeciesMix",
+"SpeciesMix.em"
+)
+import( MASS)
+import( stats)
+
