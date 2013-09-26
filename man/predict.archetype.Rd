@@ -1,17 +1,14 @@
-\name{predict.archetype
-}
-\alias{predict.archetype
-}
-\title{Predict presence of archetypes from fitted model
-}
+\name{predict.archetype}
+\alias{predict.archetype}
+\title{Predict presence of archetypes from fitted model}
 \description{predict.archetype
 }
-\usage{predict.archetype(object,new.obs,...)
+\section{Method}{predict(object, new.obs,\dots{})
 }
 \arguments{
-\item{ object}{a model object returned from SpeciesMix, of class archetype}
+\item{ object }{a model object returned from SpeciesMix}
 \item{ new.obs}{covariate data at new locations for predictions. Must be a data frame with same row names as in the model formula}
-\item{ ... }{additional arguments to pass to predict}
+\item{ ... }{further arguments passed to or from other methods.}
 }
 \details{predicts probability of occurance at new location with standard errors calculated using delta method
 }
@@ -30,6 +27,6 @@ dat <- data.frame(dat,x.sq=dat$x^2)
 dat1 <- artificial.data(y~1+x+x.sq,dat,theta,S)
 fm4 <- SpeciesMix(obs~1+x+x.sq,dat1$pa,dat,G=4,em.prefit=TRUE,em.refit=1,est.var=TRUE)
 new.obs <- data.frame(x=seq(0,2.5,0.01),x.sq=seq(0,2.5,0.01)^2)
-predict.archetype(fm4,new.obs)
+predict(fm4,new.obs)
 }
 \keyword{misc}

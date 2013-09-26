@@ -1,12 +1,12 @@
-\name{SpeciesMix
-}
-\alias{SpeciesMix
-}
-\title{Fit finite mixture models to species distributions
-}
+\name{SpeciesMix}
+\alias{SpeciesMix}
+\title{Fit finite mixture models to species distributions}
 \description{SpeciesMix is used to fit mixtures of glms to multivariate species data. The function uses BFGS to optimise the mixture likelihood.There is the option to use EM get appropriate starting parameters.
 }
-\usage{SpeciesMix(sp.form,sp.data,covar.data,G=2, pars=NA, em.prefit=TRUE,em.steps=4, em.refit = 1 , est.var = FALSE,residuals=FALSE,trace=TRUE)
+\usage{
+#SpeciesMix(sp.form,sp.data,covar.data,G=2, \\n
+#pars=NA, em.prefit=TRUE,em.steps=3, em.refit = 1, \\n
+#dist="bernoulli" , est.var = FALSE,residuals=FALSE,trace=TRUE)
 }
 \arguments{
 \item{ sp.form}{an object of class "formula" (or one that can be coerced to that class):a symbolic description of the model to be fitted. The response variable is arbitary, all the responses are in sp.data.}
@@ -17,6 +17,7 @@
 \item{ em.prefit }{find initial parameter values using EM}
 \item{ em.steps }{number of EM steps to preform}
 \item{ em.refit }{number of times to refit using EM}
+\item{ dist }{a choice of "bernoulli" (presence absence data; default),"bernoulli-random" (presence absence data with seperate intercepts for each species), "negbin" (abundance data with negative binomial) or "tweedie" (biomass data with tweedie distribution)}
 \item{ est.var }{estimate the variance covariance matrix (TRUE/FALSE)}
 \item{ residuals }{claculate species wise residuals}
 \item{ trace}{the trace}

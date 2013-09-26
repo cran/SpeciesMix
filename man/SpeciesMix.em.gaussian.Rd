@@ -1,15 +1,15 @@
-\name{SpeciesMix.em
-}
-\alias{SpeciesMix.em
-}
-\title{Implementation of SpeciesMix using EM algorithim
-}
+\name{SpeciesMix.em.gaussian}
+\alias{SpeciesMix.em.gaussian}
+\title{Implementation of SpeciesMix using EM algorithim}
 \description{
 SpeciesMix.em is used to fit mixtures of glms to multivariate species data. The function is a wrapper function for fitMix but allows for multiple EM starts to find the global maxima.
 
 Do not use this function under normal conditions. Documentation is included to allow direct interface with the EM steps.
 }
-\usage{SpeciesMix.em(sp.form,sp.data,covar.data,G=2,em.refit=1,ite.max=500, est.var = FALSE,residuals=FALSE,trace=TRUE)
+\usage{
+#SpeciesMix.em.gaussian(sp.form,sp.data,covar.data,G=2,\\n
+#em.refit=1,ite.max=500, est.var = FALSE,\\n
+#residuals=FALSE,trace=TRUE)
 }
 \arguments{
 \item{ sp.form}{an object of class "formula" (or one that can be coerced to that class):a symbolic description of the model to be fitted}
@@ -42,6 +42,5 @@ S <- 20
 theta <- matrix(c(-0.9,-0.6,0.5,1,-0.9,1,0.9,-0.9),4,2,byrow=TRUE)
 dat <- data.frame(y=rep(1,100),x=runif(100,0,2.5),z=rnorm(100,10,2))
 dat1 <- artificial.data(y~1+x,dat,theta,S)
-fm4 <- SpeciesMix.em(obs~1+x,dat1$pa,dat,G=4,em.refit=5)
 }
 \keyword{misc}

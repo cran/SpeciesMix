@@ -1,8 +1,11 @@
 export( "artificial.data",
+"clusterSelect",
+"logLike.pars",
 "predict.archetype",
 "SpeciesMix",
-"SpeciesMix.em"
-)
+"SpeciesMix.em.gaussian")
 import( MASS)
 import( stats)
+import( numDeriv)
+S3method( "predict", "archetype")
 
