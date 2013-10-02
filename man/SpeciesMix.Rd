@@ -17,7 +17,7 @@
 \item{ em.prefit }{find initial parameter values using EM}
 \item{ em.steps }{number of EM steps to preform}
 \item{ em.refit }{number of times to refit using EM}
-\item{ dist }{a choice of "bernoulli" (presence absence data; default),"bernoulli-random" (presence absence data with seperate intercepts for each species), "negbin" (abundance data with negative binomial) or "tweedie" (biomass data with tweedie distribution)}
+\item{ dist }{a choice of "bernoulli" (presence absence data; default), "negbin" (abundance data with negative binomial) or "tweedie" (biomass data with tweedie distribution)}
 \item{ est.var }{estimate the variance covariance matrix (TRUE/FALSE)}
 \item{ residuals }{claculate species wise residuals}
 \item{ trace}{the trace}

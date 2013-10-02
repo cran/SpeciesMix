@@ -1873,6 +1873,22 @@ function (object,new.obs,...)
 }
 
 
+"print.archetype" <-
+function (x,...) 
+{
+  cat("\nMixing probabilities\n")
+  print(x$pi)
+  cat("\nCoefficents\n")
+  print(x$coef)
+  if(!is.na(x$se[1])){
+    cat("\nStandard Errors of coefficents\n")
+    print(x$se)
+  }
+  cat("\nPosterior Probabilities\n")
+  print(x$tau)
+}
+
+
 "pTweedie" <-
 function ( quant, mu, phi, p) 
 {
@@ -1938,11 +1954,11 @@ function (sp.form,sp.data,covar.data,G=2, pars=NA, em.prefit=TRUE,em.steps=3, em
 {
   
   if(dist=="bernoulli") return(SpeciesMix.bernoulli(sp.form,sp.data,covar.data,G, pars, em.prefit,em.steps, em.refit ,est.var,residuals,trace,r1=FALSE))
-    if(dist=="bernoulli-random") return(SpeciesMix.bernoulli(sp.form,sp.data,covar.data,G, pars, em.prefit,em.steps, em.refit ,est.var,residuals,trace,r1=TRUE))
+  ##  if(dist=="bernoulli-random") return(SpeciesMix.bernoulli(sp.form,sp.data,covar.data,G, pars, em.prefit,em.steps, em.refit ,est.var,residuals,trace,r1=TRUE))
   if(dist=="negbin") return(SpeciesMix.nbinom(sp.form,sp.data,covar.data,G, pars, em.prefit,em.steps, em.refit ,est.var,residuals,trace))
   if(dist=="tweedie") return(SpeciesMix.tweedie(sp.form,sp.data,covar.data,G, pars, em.prefit,em.steps, em.refit ,est.var,residuals,trace))
-  if(dist=="gaussian") return(SpeciesMix.gaussian(sp.form,sp.data,covar.data,G, pars, em.prefit,em.steps, em.refit ,est.var,residuals,trace))
-  print("incorrect distribution type, options are bernoulli or negbin")
+  ##if(dist=="gaussian") return(SpeciesMix.gaussian(sp.form,sp.data,covar.data,G, pars, em.prefit,em.steps, em.refit ,est.var,residuals,trace))
+  print("incorrect distribution type, options are bernoulli, negbin or tweedie")
   return(0)
 }
 
@@ -1976,9 +1992,17 @@ function (sp.form,sp.data,covar.data,G=2, pars=NA, em.prefit=TRUE,em.steps=4, em
   }
 
   rownames(fmM.out$tau) <- sp.name ## add names to taus
-
+  fmM.out$se <- NA
   if(est.var){
     fmM.out$covar <- try(solve(fmM.out$hessian))
+     if(class(fmM.out$covar)!="try-error"){
+     ##colnames(fmM.out$covar) <- rownames(fmM.out$covar) <- names(fmM.out$gradient)
+     tmp <- sqrt(diag(fmM.out$covar))
+     tmp <- tmp[(G):length(tmp)]
+     fmM.out$se <- matrix(tmp,G,ncol(fmM.out$coef))
+     colnames(fmM.out$se) <- colnames(fmM.out$coef)
+     rownames(fmM.out$se) <- rownames(fmM.out$coef)
+   }
   }
   if(residuals) fmM.out$residuals <- mix.residuals(fmM.out,sp.form,data,sp)
   fmM.out$formula <- sp.form
@@ -2222,16 +2246,26 @@ function (sp.form,sp.data,covar.data,G=2, pars=NA, em.prefit=TRUE,em.steps=3, em
   #}
 
   rownames(fmM.out$tau) <- sp.name ## add names to taus
-
+  fmM.out$se <- NA
   if(est.var){
-    t1 <- sqrt(diag(fmM.out$covar))
-    t1 <- t1[-(1:G-1)]
-    fmM.out$se.coef <- t1[1:length(fmM.out$coef)]
-    t1 <- t1[-(1:length(fmM.out$coef))]
-    dim(fmM.out$se.coef) <- dim(fmM.out$coef)
+      fmM.out$covar <- try(solve(fmM.out$hessian))
+   if(class(fmM.out$covar)!="try-error"){
+     #colnames(fmM.out$covar) <- rownames(fmM.out$covar) <- names(fmM.out$gradient)
+     tmp <- sqrt(diag(fmM.out$covar))
+     tmp <- tmp[-1*(1:((G-1)))]
+     tmp <- tmp[-1*((length(tmp)-(2*S-1)):length(tmp))]
+     fmM.out$se <- matrix(tmp,G,ncol(fmM.out$coef))
+     colnames(fmM.out$se) <- colnames(fmM.out$coef)
+     rownames(fmM.out$se) <- rownames(fmM.out$coef)
+   }
+      ##t1 <- sqrt(diag(fmM.out$covar))
+    ##t1 <- t1[-(1:G-1)]
+    ##fmM.out$se.coef <- t1[1:length(fmM.out$coef)]
+    ##t1 <- t1[-(1:length(fmM.out$coef))]
+    ##dim(fmM.out$se.coef) <- dim(fmM.out$coef)
     
-    fmM.out$se.int <- t1[1:S]
-    fmM.out$se.disp <- t1[-(1:S)]
+    ##fmM.out$se.int <- t1[1:S]
+    ##fmM.out$se.disp <- t1[-(1:S)]
   }
   if(residuals) fmM.out$residuals <- mix.residuals(fmM.out,sp.form,data,sp)
   fmM.out$formula <- sp.form
@@ -2272,13 +2306,18 @@ function (sp.form,sp.data,covar.data,G=2, pars=NA, em.prefit=TRUE,em.steps=3, em
   ##}
 
   rownames(fmM.out$tau) <- sp.name ## add names to taus
-
+  fmM.out$se <- NA
   if(est.var){
    ##fmM.out$covar <- try(solve(fmM.out$hessian))
    fmM.out$covar <- try(solve(fmM.out$hessian))
    if(class(fmM.out$covar)!="try-error"){
      colnames(fmM.out$covar) <- rownames(fmM.out$covar) <- names(fmM.out$gradient)
-     fmM$se <- sqrt(diag(fmM.out$covar))
+     tmp <- sqrt(diag(fmM.out$covar))
+     tmp <- tmp[-1*(1:((G-1)))]
+     tmp <- tmp[-1*((length(tmp)-(2*S-1)):length(tmp))]
+     fmM.out$se <- matrix(tmp,G,ncol(fmM.out$coef))
+     colnames(fmM.out$se) <- colnames(fmM.out$coef)
+     rownames(fmM.out$se) <- rownames(fmM.out$coef)
    }
   }
   if(residuals) fmM.out$residuals <- mix.residuals(fmM.out,sp.form,data,sp)
@@ -2744,9 +2783,6 @@ globalVariables( package="SpeciesMix",
     ,"r1"
     ,"fmM.out"
     ,"fun.est.var"
-    ,"se.coef"
-    ,"se.int"
-    ,"se.disp"
     ,"e"
     ,"mean.form"
     ,"temp.p"

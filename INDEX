@@ -2,6 +2,6 @@ artificial.data                     Create an artificial data set
 clusterSelect                       Fit SpeciesMix for a range of vaules for G
 logLike.pars                        logLike.pars
 predict.archetype                   Predict presence of archetypes from fitted model
+print.archetype                     Print archetypes from fitted model
 SpeciesMix                          Fit finite mixture models to species distributions
-SpeciesMix.em.gaussian              Implementation of SpeciesMix using EM algorithim
 SpeciesMixtures                     Package Description

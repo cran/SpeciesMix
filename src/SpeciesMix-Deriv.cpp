@@ -280,10 +280,12 @@ double like_function(vector< double > &estpi, vector < double > &coef, const dou
 double link_function(double p, int link_type){
   // using logit link function
   if(link_type==0) return(log(p)-log(1-p));
+  return(log(p));
 }
 double inv_link_function(double lpre, int link_type){
   // using logit link function
   if(link_type==0) return(exp(lpre)/(1+exp(lpre)));
+  return(exp(lpre));
 }
 
 void additive_logistic(vector< double > &x,int inv){
@@ -366,7 +368,7 @@ void Optimise_data::SetVars(double *ty, double *tX, int *tID, int tS, int tG, in
    
     tmp=0;
     yt = y[i];
-    for(j=1;j<=yt;j++){tmp+=log(j); }
+    for(j=1;j<=yt;j++){tmp+=log((double) j); }
     log_y_factorial.push_back(tmp); 
   }
  
@@ -679,7 +681,7 @@ void Optimise_data_nbinom::SetVars(double *ty, double *tX, double *tw, double to
     lp.push_back(0); //fitted values
     tmp=0;
     yt = (int)y[i];
-    for(j=1;j<=yt;j++){tmp+=log(j); }
+    for(j=1;j<=yt;j++){tmp+=log((double) j); }
     log_y_factorial.push_back(tmp); 
   }
 }
