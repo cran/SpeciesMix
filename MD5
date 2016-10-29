@@ -1,7 +1,7 @@
-f0033ff549f35f2cae4b06e58b139d2d *DESCRIPTION
+148e10d333914987e6bcd45cdc4d5cf3 *DESCRIPTION
 245220c22e6a810612d13909d62c4462 *INDEX
 3f69d52192fb4540a3c16470c05d618e *NAMESPACE
-4bfe0e43a81f764ddd335768fcc8450d *R/SpeciesMix.R
+ed95ad56dcaa08268e40dc23d7536fa1 *R/SpeciesMix.R
 1ff9e795066ef95aa820c95df359a866 *man/SpeciesMix.Rd
 cfee9985af157a2392ac972ebc6b1dd6 *man/SpeciesMix_overview.Rd
 e88afed26be69f26de53d9b789361141 *man/artificial.data.Rd
@@ -12,7 +12,7 @@ a0c02fc474a2f9150c36a791e740233c *man/print.archetype.Rd
 7c85b3c230f1c04a065ac7232ab6a084 *src/SpeciesMix-Deriv.cpp
 4580376e5bd02b2a57b61c71470ed032 *src/SpeciesMix-Deriv.h
 d49ab6a8be5a9c92a9885a256ae8e0d7 *src/Tweedie.cc
-7bbfad2d5785364029ea546f7cc3673d *src/Tweedie.h
+6e8e979d4e1e14feda8b333d80640b89 *src/Tweedie.h
 d5d6b4a9fcbf5e3aa0d24b8cbec2920a *src/TweedieDeriv.cc
 e796c21da731d143ecc5c5813f233dce *src/cppad/CheckNumericType.h
 2710fb4cdf80554164eb82dd0f7d680c *src/cppad/CheckSimpleVector.h
